@@ -1,16 +1,35 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import Header from './Header'
 
 const Course = () => {
-    var[title,setCtitle]=useState("")
-    var[duration,setCduration]=useState("")
-    var[desg,setCdescription]=useState("")
-    var[venue,setCvenue]=useState("")
-    var[date,setCdate]=useState("")
+    var[courseTitle,setCtitle]=useState("")
+    var[courseDuration,setCduration]=useState("")
+    var[courseDescription,setCdescription]=useState("")
+    var[courseVenue,setCvenue]=useState("")
+    var[courseDate,setCdate]=useState("")
     const subData=()=>{
-        const data={"title":title,"duration":duration,"desg":desg,"venue":venue,"date":date}
+        const data={"courseTitle":courseTitle,"courseDuration":courseDuration,"courseDescription":courseDescription,"courseVenue":courseVenue,"courseDate":courseDate}
         console.log(data)
-    }
+        axios.post("https://mylinkurcodesapp.herokuapp.com/addcourse",data).then((response)=>{
+            console.log(response.data)
+            
+
+        if(response.data.status= "success")
+        {
+            alert("Successfully Inserted")
+        }
+            else
+            {
+                alert("Failed to load")
+            }
+            
+        }
+            
+
+        )
+        }
+    
   return (
     <div>
         <Header/><div className="container">
@@ -40,12 +59,13 @@ const Course = () => {
             
                
                 <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                <button onClick={subData}   class="btn btn-success">Register</button>
+                <button onClick={subData}  class="btn btn-success">Register</button>
                 </div>
             </div>
         </div>
     </div>
 </div></div>
+
   )
 }
 

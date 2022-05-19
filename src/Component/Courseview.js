@@ -1,36 +1,19 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Header from './Header'
 
 const Courseview = () => {
-    var Course=[
-        {
-            "title":"mca",
-            "duration":"6",
-            "desg":"Accountant",
-            "venue":"kochi",
-            "date":"22"
-            
-        },
-    
-    
-        {
-            "title":"mba",
-            "duration":"6",
-            "desg":"python",
-            "venue":"tvm",
-            "date":"23"
-            
-        },
-        {
-            "title":"bca",
-            "duration":"6",
-            "desg":"Accountant",
-            "venue":"banglore",
-            "date":"24"
-            
-        },
-    
-    ]
+    var[Course,setCourse]=useState([])
+    var[Loadstatus,setLoadstatus]=useState(true)
+    axios.get("https://mylinkurcodesapp.herokuapp.com/getcourses").then((response)=>{
+        console.log(response.data)
+      
+   
+   
+    setCourse(response.data)
+   setLoadstatus(false)
+   })
+        
     return (
         <div>
             
@@ -40,7 +23,9 @@ const Courseview = () => {
          <div className="col col-12 col-sm-12 col-md-12 col-lg-12">
       <div className="row g-3">
       <div className='col col-12 col-sm-12 col-md-12 col-lg-12'>
-      <table class="table table-success">
+          {Loadstatus? <div class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>:<table class="table table-success">
                          <thead>
                              <tr>
                                  <th scope="col">NO</th>
@@ -56,11 +41,11 @@ const Courseview = () => {
       {Course.map((value,key)=>{
                  return <tr>      
         <th scope="row">1</th>
-        <td>{value.title}</td>
-        <td>{value.desg}</td>
-        <td>{value.duration}</td>
-        <td>{value.venue}</td>
-        <td>{value.date}</td>
+        <td>{value.courseTitle}</td>
+        <td>{value.courseDescription}</td>
+        <td>{value.courseDuration}</td>
+        <td>{value.courseVenue}</td>
+        <td>{value.courseDate}</td>
          
         </tr>
     
@@ -68,6 +53,8 @@ const Courseview = () => {
              } )}
                </tbody>
     </table>
+}
+    
              </div>    
                </div>
                </div>
